@@ -1,0 +1,50 @@
+---
+filebeat_version: 7.x
+filebeat_package: filebeat
+filebeat_package_state: present
+
+filebeat_create_config: true
+filebeat_template: "filebeat.yml.j2"
+
+filebeat_inputs:
+  - type: log
+    paths:
+      - "/var/log/*.log"
+
+filebeat_output_elasticsearch_enabled: true
+filebeat_output_elasticsearch_hosts:
+  - "192.168.99.23:9200"
+#  - "localhost02:9200"
+#  - "localhost03:9200"
+
+filebeat_output_elasticsearch_protocol: "https"
+filebeat_output_elasticsearch_username: "elastic"
+filebeat_output_elasticsearch_password: "GwF1409!"
+
+filebeat_output_elasticsearch_enabled_ssl: true
+
+
+filebeat_output_logstash_enabled: false
+filebeat_output_logstash_hosts:
+  - "localhost:5044"
+
+filebeat_enable_logging: false
+filebeat_log_level: warning
+filebeat_log_dir: /var/log/filebeat
+filebeat_log_filename: filebeat.log
+
+filebeat_ssl_dir: /etc/elk_cert
+filebeat_ssl_certificate_file: "home.lab+cert.crt"
+filebeat_ssl_key_file: ""
+filebeat_ssl_insecure: "false"
+
+filebeat_elastic_cloud_enabled: false
+filebeat_elastic_cloud_id: ""
+filebeat_elastic_cloud_username: ""
+filebeat_elastic_cloud_password: ""
+
+
+
+filebeat_template_numberofshards: "1"
+filebeat_template_numberofreplica: "1"
+filebeat_template_codec: "best_compression"
