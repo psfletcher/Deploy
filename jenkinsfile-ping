@@ -1,0 +1,16 @@
+pipeline {
+  agent {label 'linux'}
+
+  stages {
+    stage('Ping') {
+      steps {
+        sh '''
+          ansible --version
+          ansible-playbook --version
+          ansible-galaxy --version
+        '''
+        sh 'ansible-playbook plays/'
+      }
+    }
+  }
+}
