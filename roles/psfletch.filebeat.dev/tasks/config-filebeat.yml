@@ -1,0 +1,15 @@
+---
+- name: Config - Install Filebeat.
+  package:
+    name: "{{ filebeat_package }}"
+    state: "{{ filebeat_package_state }}"
+
+- name: Config - Copy Filebeat configuration.
+  template:
+    src: "{{ filebeat_template }}"
+    dest: "/etc/{{ filebeat_package }}/filebeat.yml"
+    owner: root
+    group: root
+    mode: 0644
+  when: filebeat_create_config | bool
+  notify: restart filebeat

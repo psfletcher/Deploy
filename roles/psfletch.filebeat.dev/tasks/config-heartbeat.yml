@@ -1,0 +1,15 @@
+---
+- name: Install Heartbeat.
+  package:
+    name: "{{ heartbeat_package }}"
+    state: "{{ heartbeat_package_state }}"
+
+- name: Copy Heartbeat configuration.
+  template:
+    src: "{{ heartbeat_template }}"
+    dest: "/etc/{{ heartbeat_package }}/heartbeat.yml"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0644
+  when: heartbeat_create_config | bool 
+  notify: restart heartbeat

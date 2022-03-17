@@ -1,0 +1,107 @@
+---
+######################
+##Install Variables
+######################
+beat_version: 7.x
+
+filebeat_install: false
+filebeat_package: filebeat
+filebeat_package_state: present
+
+metricbeat_install: false
+metricbeat_package: metrixbeat
+metricbeat_package_state: present
+
+auditbeat_install: false
+auditbeat_package: auditbeat
+auditbeat_package_state: present
+
+packetbeat_install: false
+packetbeat_package: packetbeat
+packetbeat_package_state: present
+
+heartbeat_install: false
+heartbeat_package: heartbeat
+heartbeat_package_state: present
+
+######################
+##Template Variables
+######################
+filebeat_create_config: true
+filebeat_template: "filebeat.yml.j2"
+metricbeat_create_config: true
+metricbeat_template: "metricbeat.yml.j2"
+auditbeat_create_config: true
+auditbeat_template: "auditbeat.yml.j2"
+packetbeat_create_config: true
+packetbeat_template: "packetbeat.yml.j2"
+heartbeat_create_config: true
+heartbeat_template: "heartbeat.yml.j2"
+
+######################
+##Elasticsearch shard config
+######################
+
+filebeat_template_numberofshards: "1"
+filebeat_template_numberofreplica: "1"
+filebeat_template_codec: "best_compression"
+
+######################
+##Filebeat Inputs
+######################
+
+filebeat_inputs:
+  - type: log
+    paths:
+      - "/var/log/*.log"
+
+######################
+##Filebeat Outputs - Elasticsearch
+######################
+
+
+filebeat_output_elasticsearch_enabled: true
+filebeat_output_elasticsearch_hosts:
+  - "localhost01:9200"
+#  - "localhost02:9200"
+#  - "localhost03:9200"
+
+filebeat_output_elasticsearch_protocol: "https or http"
+filebeat_output_elasticsearch_username: "elasticsearch username"
+filebeat_output_elasticsearch_password: "Password"
+filebeat_output_elasticsearch_enabled_ssl: true or false
+
+######################
+##Filebeat Outputs - Logstash
+######################
+
+filebeat_output_logstash_enabled: false
+filebeat_output_logstash_hosts:
+  - "localhost:5044"
+
+######################
+##Filebeat Outputs - Cloud
+######################
+
+filebeat_elastic_cloud_enabled: false
+filebeat_elastic_cloud_id: ""
+filebeat_elastic_cloud_username: ""
+filebeat_elastic_cloud_password: ""
+
+######################
+##Elasticsearch Cert
+######################
+
+filebeat_ssl_dir: /etc/elk_cert
+filebeat_ssl_certificate_file: "home.lab+cert.crt"
+filebeat_ssl_key_file: ""
+filebeat_ssl_insecure: "none"
+
+######################
+##Filebeat Logging
+######################
+
+filebeat_enable_logging: false
+filebeat_log_level: warning
+filebeat_log_dir: /var/log/filebeat
+filebeat_log_filename: filebeat.log

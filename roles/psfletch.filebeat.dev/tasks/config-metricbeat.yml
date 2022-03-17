@@ -1,0 +1,15 @@
+---
+- name: Install Metricbeat.
+  package:
+    name: "{{ metricbeat_package }}"
+    state: "{{ metricbeat_package_state }}"
+
+- name: Copy metricbeat configuration.
+  template:
+    src: "{{ metricbeat_template }}"
+    dest: "/etc/{{ metricbeat_package }}/metricbeat.yml"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0644
+  when: metricbeat_create_config | bool   
+  notify: restart metrixbeat
