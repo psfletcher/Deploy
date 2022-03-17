@@ -1,5 +1,5 @@
 ---
-- hosts: webservers
+- hosts: webservers haproxy
   roles:
     - role: geerlingguy.ntp
       ntp_enabled: true

@@ -7,10 +7,15 @@ pipeline {
         sh 'ansible-playbook plays/play-ping'
       }
     }
+    stage('update and reboot') {
+      steps {
+        sh 'ansible-playbook plays/play-update'
+      }
+    }  
     stage('ntp') {
       steps {
         sh 'ansible-playbook plays/play-ntpd'
       }
-    }  
+    } 
   }
 }
