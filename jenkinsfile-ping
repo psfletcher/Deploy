@@ -9,7 +9,7 @@ pipeline {
           ansible-playbook --version
           ansible-galaxy --version
         '''
-        sh 'ansible-playbook plays/'
+        sh 'ansible-playbook plays/play-ping'
       }
     }
   }
