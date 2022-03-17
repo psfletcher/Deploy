@@ -9,7 +9,7 @@ pipeline {
     }
     stage('ntp') {
       steps {
-        sh 'ansible-playbook plays/play-ntp'
+        sh 'ansible-playbook plays/play-ntpd'
       }
     }  
   }
