@@ -4,13 +4,13 @@ pipeline {
   stages {
     stage('Ping') {
       steps {
-        sh '''
-          ansible --version
-          ansible-playbook --version
-          ansible-galaxy --version
-        '''
         sh 'ansible-playbook plays/play-ping'
       }
     }
+    stage('ntp') {
+      steps {
+        sh 'ansible-playbook plays/play-ntp'
+      }
+    }  
   }
 }
