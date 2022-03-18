@@ -9,7 +9,7 @@ filebeat_package: filebeat
 filebeat_package_state: present
 
 metricbeat_install: false
-metricbeat_package: metrixbeat
+metricbeat_package: metricbeat
 metricbeat_package_state: present
 
 auditbeat_install: false

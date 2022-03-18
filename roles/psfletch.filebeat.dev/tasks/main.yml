@@ -1,34 +1,35 @@
-- include_tasks: setup-Debian.yml
+- name: main - setup-Debian.yml 
+  include_tasks: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: setup filebeat
+- name: main - setup filebeat
   include_tasks: config-filebeat.yml
   when: filebeat_install | bool
 
-- name: setup metricbeat
+- name: main - setup metricbeat
   include_tasks: config-metricbeat.yml
   when: metricbeat_install | bool
 
-- name: setup auditbeat
+- name: main - setup auditbeat
   include_tasks: config-auditbeat.yml
   when: auditbeat_install | bool
 
-- name: setup packetbeat
+- name: main - setup packetbeat
   include_tasks: config-packetbeat.yml
   when: packetbeat_install | bool
 
-- name: setup heartbeat
+- name: main - setup heartbeat
   include_tasks: config-heartbeat.yml
   when: heartbeat_install | bool
 
-- name: Ensure Filebeat SSL key pair directory exists.
+- name: main - Ensure Filebeat SSL key pair directory exists.
   file:
     path: "{{ filebeat_ssl_dir }}"
     state: directory
     mode: 0755
   when: filebeat_ssl_certificate_file | default(false)
 
-- name: Copy SSL key and cert for filebeat.
+- name: main - Copy SSL key and cert for filebeat.
   copy:
     src: "/home/ubuntu/test-ansible/certs/{{ filebeat_ssl_certificate_file }}"
     dest: "{{ filebeat_ssl_dir }}/{{ filebeat_ssl_certificate_file }}"
@@ -37,25 +38,3 @@
      - "{{ filebeat_ssl_certificate_file }}"
   when:
     - filebeat_ssl_certificate_file | default(false)
-
-- name: check service
-  service_facts:
-
-- debug:
-       var: ansible_facts.services["apache2.service"]
-
-- debug:
-    msg: "Worked"
-  when: ansible_facts.services.apache2.state
-
-- name: print
-  debug:
-    msg: "apache2 is {{ ansible_facts.services['apache2.service']['status'] }}"
-  when: "'apache2.service' in ansible_facts.services"
-
-#- name: enable filebeat apache module
-#  command: filebeat modules enable apache
-#  when: ansible_facts.services.apache2.state
-
-- debug:
-       var: ansible_facts.services

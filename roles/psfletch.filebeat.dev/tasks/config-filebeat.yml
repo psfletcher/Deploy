@@ -13,3 +13,21 @@
     mode: 0644
   when: filebeat_create_config | bool
   notify: restart filebeat
+
+- name: Enable and configure System Module
+  command: filebeat modules enable system
+
+- name: Config - Run services_facts
+  service_facts:
+
+- name: Config - Check for service
+  #debug:
+  #  msg: "apache2 is {{ ansible_facts.services['apache2.service']['status'] }}"
+  command: filebeat modules enable apache
+  when: "'apache2.service' in ansible_facts.services"
+
+- name: Ensure Filebeat is started and enabled at boot.
+  service:
+    name: filebeat
+    state: started
+    enabled: true

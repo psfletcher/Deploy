@@ -15,9 +15,9 @@
       filebeat_template_numberofreplica: "1"
       filebeat_template_codec: "best_compression"
       filebeat_install: true
-      metricbeat_install: false
-      auditbeat_install: false
-      packetbeat_install: false
+      metricbeat_install: true
+      auditbeat_install: true
+      packetbeat_install: true
       heartbeat_install: false
 
 
