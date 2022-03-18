@@ -17,6 +17,11 @@ pipeline {
         sh 'ansible-playbook plays/play-ntpd'
       }
     } 
+    stage('beats') {
+      steps {
+        sh 'ansible-playbook plays/play-filebeat-dev'
+      }
+    } 
     stage('webservers') {
       steps {
         sh 'ansible-playbook plays/play-webservers'
