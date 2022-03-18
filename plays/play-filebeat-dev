@@ -1,5 +1,5 @@
 ---
-- hosts: example
+- hosts: webservers
   roles:
     - role: psfletch.filebeat.dev
       filebeat_output_elasticsearch_enabled: true
